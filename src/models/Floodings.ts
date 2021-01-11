@@ -2,11 +2,11 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  OneToMany,
-  JoinColumn,
+  // OneToMany,
+  // JoinColumn,
 } from 'typeorm';
 
-import Image from './Image';
+// import Image from './Image';
 
 @Entity('floodings')
 export default class Floodings {
@@ -23,20 +23,11 @@ export default class Floodings {
   longitude: number;
 
   @Column()
-  about: string;
+  note: string;
 
-  @Column()
-  instructions: string;
-
-  @Column()
-  opening_hours: string;
-
-  @Column()
-  open_on_weekends: boolean;
-
-  @OneToMany(() => Image, (image) => image.floodings, {
-    cascade: ['insert', 'update'],
-  })
-  @JoinColumn({ name: 'flooding_id' })
-  images: Image[];
+  // @OneToMany(() => Image, (image) => image.floodings, {
+  //   cascade: ['insert', 'update'],
+  // })
+  // @JoinColumn({ name: 'flooding_id' })
+  // images: Image[];
 }
