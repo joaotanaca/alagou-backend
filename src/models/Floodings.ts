@@ -2,11 +2,12 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  JoinColumn,
+  OneToOne,
   // OneToMany,
   // JoinColumn,
 } from 'typeorm';
-
-// import Image from './Image';
+import User from './User';
 
 @Entity('floodings')
 export default class Floodings {
@@ -25,9 +26,12 @@ export default class Floodings {
   @Column()
   note: string;
 
-  // @OneToMany(() => Image, (image) => image.floodings, {
-  //   cascade: ['insert', 'update'],
-  // })
-  // @JoinColumn({ name: 'flooding_id' })
-  // images: Image[];
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIME' })
+  createAt!: Date;
+
+  @OneToOne(() => User, (user) => user.floodings, {
+    cascade: ['insert', 'update'],
+  })
+  @JoinColumn({ name: 'flooding_id' })
+  user: User;
 }
