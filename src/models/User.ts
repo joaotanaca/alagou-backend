@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   JoinColumn,
-  OneToOne,
+  OneToMany,
 } from 'typeorm';
 import Floodings from './Floodings';
 
@@ -21,7 +21,7 @@ export default class User {
   @Column({ select: false })
   password: string;
 
-  @OneToOne(() => Floodings, (floodings) => floodings.user)
+  @OneToMany(() => Floodings, (floodings) => floodings.user)
   @JoinColumn({ name: 'flooding_id' })
-  floodings: Floodings;
+  floodings: Floodings[];
 }

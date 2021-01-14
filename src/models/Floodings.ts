@@ -3,7 +3,7 @@ import {
   Column,
   PrimaryGeneratedColumn,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   // OneToMany,
   // JoinColumn,
 } from 'typeorm';
@@ -29,7 +29,7 @@ export default class Floodings {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIME' })
   createAt!: Date;
 
-  @OneToOne(() => User, (user) => user.floodings, {
+  @ManyToOne(() => User, (user) => user.floodings, {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'flooding_id' })
