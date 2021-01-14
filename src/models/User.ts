@@ -4,12 +4,8 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   OneToOne,
-  // OneToMany,
-  // JoinColumn,
 } from 'typeorm';
 import Floodings from './Floodings';
-
-// import Image from './Image';
 
 @Entity('user')
 export default class User {
@@ -22,7 +18,7 @@ export default class User {
   @Column()
   email: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
   @OneToOne(() => Floodings, (floodings) => floodings.user)

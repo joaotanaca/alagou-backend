@@ -1,18 +1,17 @@
 import Floodings from '../models/Floodings';
-// import imagesView from './images_view';
+import userView from './user_view';
 
 export default {
   render(floodings: Floodings) {
+    const { id, name, latitude, longitude, note, createAt, user } = floodings;
     return {
-      id: floodings.id,
-      name: floodings.name,
-      latitude: floodings.latitude,
-      longitude: floodings.longitude,
-      note: floodings.note,
-      // instructions: floodings.instructions,
-      // opening_hours: floodings.opening_hours,
-      // open_on_weekends: floodings.open_on_weekends,
-      // images: imagesView.renderMany(floodings.images),
+      id,
+      name,
+      latitude,
+      longitude,
+      note,
+      createAt,
+      user: userView.render(user),
     };
   },
 
