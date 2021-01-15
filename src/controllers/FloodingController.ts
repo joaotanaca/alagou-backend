@@ -37,9 +37,7 @@ export default {
 
     await schema.validate(req.body, { abortEarly: false });
 
-    const floodings = floodingsRepository.create({
-      ...req.body,
-    });
+    const floodings = floodingsRepository.create(req.body);
 
     await floodingsRepository.save(floodings);
 
