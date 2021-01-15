@@ -9,9 +9,7 @@ export default {
   async index(_req: Request, res: Response) {
     const floodingsRepository = getRepository(Floodings);
 
-    const floodings = await floodingsRepository.find({
-      relations: ['user'],
-    });
+    const floodings = await floodingsRepository.find();
 
     return res.json(floodingsView.renderMany(floodings));
   },
@@ -21,9 +19,7 @@ export default {
 
     const floodingsRepository = getRepository(Floodings);
 
-    const floodings = await floodingsRepository.findOneOrFail(id, {
-      relations: ['user'],
-    });
+    const floodings = await floodingsRepository.findOneOrFail(id);
 
     return res.json(floodingsView.render(floodings));
   },
@@ -43,8 +39,6 @@ export default {
 
     const floodings = floodingsRepository.create({
       ...req.body,
-      // open_on_weekends,
-      // images,
     });
 
     await floodingsRepository.save(floodings);

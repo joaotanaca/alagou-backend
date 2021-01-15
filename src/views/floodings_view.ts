@@ -1,5 +1,4 @@
 import Floodings from '../models/Floodings';
-import userView from './user_view';
 
 export default {
   render(floodings: Floodings) {
@@ -11,7 +10,7 @@ export default {
       longitude,
       note,
       createAt,
-      user: userView.render(user),
+      user,
     };
   },
 

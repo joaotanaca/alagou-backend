@@ -1,5 +1,4 @@
 import User from '../models/User';
-import floodings_view from './floodings_view';
 
 export default {
   render(user: User): any {
@@ -8,7 +7,7 @@ export default {
       id,
       email,
       name,
-      floodings: floodings_view.renderMany(floodings),
+      floodings,
     };
   },
 

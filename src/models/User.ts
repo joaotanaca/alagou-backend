@@ -1,16 +1,9 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-  OneToMany,
-} from 'typeorm';
-import Floodings from './Floodings';
+import { Entity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
 
 @Entity('user')
 export default class User {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @ObjectIdColumn()
+  id!: ObjectID;
 
   @Column()
   name!: string;
@@ -18,10 +11,12 @@ export default class User {
   @Column()
   email!: string;
 
+  @Column()
+  phone!: string;
+
   @Column({ select: false })
   password!: string;
 
-  @OneToMany(() => Floodings, (floodings) => floodings.user)
-  @JoinColumn({ name: 'flooding_id' })
-  floodings!: Floodings[];
+  @Column()
+  floodings!: string[];
 }

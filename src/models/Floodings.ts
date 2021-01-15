@@ -1,16 +1,9 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  JoinColumn,
-  ManyToOne,
-} from 'typeorm';
-import User from './User';
+import { Entity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
 
 @Entity('floodings')
 export default class Floodings {
-  @PrimaryGeneratedColumn('increment')
-  id!: number;
+  @ObjectIdColumn()
+  id!: typeof ObjectID;
 
   @Column()
   name!: string;
@@ -27,9 +20,6 @@ export default class Floodings {
   @Column({ type: 'datetime', default: () => 'CURRENT_TIME' })
   createAt!: Date;
 
-  @ManyToOne(() => User, (user) => user.floodings, {
-    cascade: ['insert', 'update'],
-  })
-  @JoinColumn({ name: 'flooding_id' })
-  user!: User;
+  @Column()
+  user!: string;
 }
