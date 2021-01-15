@@ -4,27 +4,25 @@ import {
   PrimaryGeneratedColumn,
   JoinColumn,
   ManyToOne,
-  // OneToMany,
-  // JoinColumn,
 } from 'typeorm';
 import User from './User';
 
 @Entity('floodings')
 export default class Floodings {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  latitude: number;
+  latitude!: number;
 
   @Column()
-  longitude: number;
+  longitude!: number;
 
   @Column()
-  note: string;
+  note!: string;
 
   @Column({ type: 'datetime', default: () => 'CURRENT_TIME' })
   createAt!: Date;
@@ -33,5 +31,5 @@ export default class Floodings {
     cascade: ['insert', 'update'],
   })
   @JoinColumn({ name: 'flooding_id' })
-  user: User;
+  user!: User;
 }

@@ -10,18 +10,18 @@ import Floodings from './Floodings';
 @Entity('user')
 export default class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id!: string;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column({ select: false })
-  password: string;
+  password!: string;
 
   @OneToMany(() => Floodings, (floodings) => floodings.user)
   @JoinColumn({ name: 'flooding_id' })
-  floodings: Floodings[];
+  floodings!: Floodings[];
 }
