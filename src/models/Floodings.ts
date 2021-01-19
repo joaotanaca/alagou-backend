@@ -3,7 +3,7 @@ import { Entity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
 @Entity('floodings')
 export default class Floodings {
   @ObjectIdColumn()
-  id!: typeof ObjectID;
+  _id!: typeof ObjectID;
 
   @Column()
   name!: string;

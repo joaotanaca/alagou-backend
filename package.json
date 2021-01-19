@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node dist/server.js",
     "postinstall": "tsc",
-    "watch-node": "nodemon src/server.ts",
-    "watch-ts": "tsc -w",
+    "dev": "nodemon src/server.ts",
+    "dev-ts": "tsc -w",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },

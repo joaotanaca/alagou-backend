@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
+import User from '../models/User';
+import { getMongoRepository } from 'typeorm';
 import * as Yup from 'yup';
 
 import Floodings from '../models/Floodings';
@@ -7,7 +8,7 @@ import floodingsView from '../views/floodings_view';
 
 export default {
   async index(_req: Request, res: Response) {
-    const floodingsRepository = getRepository(Floodings);
+    const floodingsRepository = getMongoRepository(Floodings);
 
     const floodings = await floodingsRepository.find();
 
@@ -17,7 +18,7 @@ export default {
   async show(req: Request, res: Response) {
     const { id } = req.params;
 
-    const floodingsRepository = getRepository(Floodings);
+    const floodingsRepository = getMongoRepository(Floodings);
 
     const floodings = await floodingsRepository.findOneOrFail(id);
 
@@ -25,22 +26,24 @@ export default {
   },
 
   async create(req: Request, res: Response) {
-    const floodingsRepository = getRepository(Floodings);
+    const floodingsRepository = getMongoRepository(Floodings);
+    try {
+      const schema = Yup.object().shape({
+        name: Yup.string().required(),
+        latitude: Yup.number().required(),
+        longitude: Yup.number().required(),
+        note: Yup.string(),
+        user: Yup.string().required(),
+      });
 
-    const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      latitude: Yup.number().required(),
-      longitude: Yup.number().required(),
-      note: Yup.string(),
-      user: Yup.number().required(),
-    });
+      await schema.validate(req.body, { abortEarly: false });
 
-    await schema.validate(req.body, { abortEarly: false });
+      const floodings: any = floodingsRepository.create(req.body);
 
-    const floodings = floodingsRepository.create(req.body);
-
-    await floodingsRepository.save(floodings);
-
-    return res.status(201).json(floodings);
+      await floodingsRepository.save(floodings);
+      return res.status(201).json(floodings);
+    } catch (err) {
+      return res.status(400).json(err);
+    }
   },
 };
