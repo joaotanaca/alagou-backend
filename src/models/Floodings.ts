@@ -1,9 +1,9 @@
-import { Entity, Column, ObjectIdColumn, ObjectID } from 'typeorm';
+import { Entity, Column, ObjectIdColumn } from 'typeorm';
 
 @Entity('floodings')
 export default class Floodings {
   @ObjectIdColumn()
-  _id!: typeof ObjectID;
+  _id!: string;
 
   @Column()
   name!: string;

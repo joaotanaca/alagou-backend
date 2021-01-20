@@ -2,9 +2,9 @@ import Floodings from '../models/Floodings';
 
 export default {
   render(floodings: Floodings) {
-    const { id, name, latitude, longitude, note, createAt, user } = floodings;
+    const { _id, name, latitude, longitude, note, createAt, user } = floodings;
     return {
-      id,
+      _id,
       name,
       latitude,
       longitude,

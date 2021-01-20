@@ -10,5 +10,6 @@ routes.get('/floodings/:id', FloodingController.show);
 routes.post('/floodings', FloodingController.create);
 routes.get('/floodings/:id', UserController.show);
 routes.post('/user/create', UserController.create);
+routes.post('/user/login', UserController.login);
 
 export default routes;

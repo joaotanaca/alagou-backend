@@ -67,4 +67,24 @@ export default {
       });
     }
   },
+  async login(req: Request, res: Response) {
+    const userRepository = getMongoRepository(User);
+    const user = await userRepository.findOne({ email: req.body.email });
+    const error = res.status(400).json({ message: 'Email ou senha incorreta' });
+    let _return;
+
+    if (user?.email) {
+      bcrypt.compare(req.body.password, user.password, (result) => {
+        if (result)
+          _return = res
+            .status(200)
+            .json({ name: user.name, phone: user.phone, email: user.email });
+        else _return = error;
+      });
+    } else {
+      _return = error;
+    }
+
+    return _return;
+  },
 };
