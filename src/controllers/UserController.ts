@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { getMongoRepository } from 'typeorm';
 import * as Yup from 'yup';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import User from '../models/User';
 import user_view from '../views/user_view';
 
@@ -69,22 +69,20 @@ export default {
   },
   async login(req: Request, res: Response) {
     const userRepository = getMongoRepository(User);
-    const user = await userRepository.findOne({ email: req.body.email });
-    const error = res.status(400).json({ message: 'Email ou senha incorreta' });
-    let _return;
 
+    const user = await userRepository.findOne({ email: req.body.email });
     if (user?.email) {
-      bcrypt.compare(req.body.password, user.password, (result) => {
-        if (result)
-          _return = res
-            .status(200)
-            .json({ name: user.name, phone: user.phone, email: user.email });
-        else _return = error;
-      });
-    } else {
-      _return = error;
+      const result = await bcrypt.compare(req.body.password, user.password);
+      if (result) {
+        return res.status(200).json({
+          id: user.id,
+          name: user.name,
+          phone: user.phone,
+          email: user.email,
+        });
+      }
     }
 
-    return _return;
+    return res.status(400).json({ message: 'Email ou senha incorreta' });
   },
 };

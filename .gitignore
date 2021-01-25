@@ -6,5 +6,6 @@ uploads/*
 !uploads/.gitkeep
 
 *.lock
+*-error.log
 
 dist
