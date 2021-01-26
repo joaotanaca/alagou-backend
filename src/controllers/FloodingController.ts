@@ -42,6 +42,7 @@ export default {
       await floodingsRepository.save(floodings);
       return res.status(201).json(floodings);
     } catch (err) {
+      console.log(err);
       return res.status(400).json(err);
     }
   },
